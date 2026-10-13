@@ -19,7 +19,12 @@ class pedido(models.Model):
     url = models.URLField(blank=True, null=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     fecha = models.DateTimeField()
+    cantidad = models.IntegerField()
     total = models.IntegerField()
+
+    @property
+    def total_formatted(self):
+        return f"${self.total:,.0f}".replace(",", ".")
 
     def __str__(self) -> str:
         return self.producto

@@ -10,8 +10,8 @@ class ClienteAdmin(admin.ModelAdmin):
     search_fields = ['nombre', 'email']
 
 class pedidoAdmin(admin.ModelAdmin):
-    list_display = ['producto', 'url', 'cliente', 'fecha', 'total']
-    list_filter = ['producto', 'cliente', 'fecha', 'total']
+    list_display = ['producto', 'url', 'cliente', 'fecha', 'cantidad', 'total_formatted']
+    list_filter = ['producto', 'cliente', 'fecha', 'cantidad']
     search_fields = ['producto', 'cliente__nombre']
 
 admin.site.register(Cliente, ClienteAdmin)
