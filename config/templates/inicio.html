@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pedidos y platos de Restaurante El Insaciable.">
+    <title>Restaurante El Insaciable</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <p class="eyebrow">Cocina hecha para disfrutar</p>
+            <h1>RESTAURANTE EL INSACIABLE</h1>
+            <p class="header-description">Nuestros platos, siempre listos para abrir el apetito.</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="orders-section" aria-labelledby="orders-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Recién preparados</p>
+                    <h2 id="orders-title">Nuestros pedidos</h2>
+                </div>
+                <span class="order-count">{{ pedidos|length }} {% if pedidos|length == 1 %}pedido{% else %}pedidos{% endif %}</span>
+            </div>
+
+            {% if pedidos %}
+                <div class="order-grid">
+                    {% for pedido in pedidos %}
+                        <article class="order-card">
+                            <div class="card-image">
+                                {% if pedido.url %}
+                                    <img src="{{ pedido.url }}" alt="Fotografía de {{ pedido.producto }}" loading="lazy">
+                                {% else %}
+                                    <div class="image-placeholder" role="img" aria-label="Imagen no disponible">
+                                        <span>Imagen no disponible</span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title-row">
+                                    <h3>{{ pedido.producto }}</h3>
+                                    <span class="price">{{ pedido.total_formatted }}</span>
+                                </div>
+                                <dl class="order-details">
+                                    <div>
+                                        <dt>Cliente</dt>
+                                        <dd>{{ pedido.cliente.nombre }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Cantidad</dt>
+                                        <dd>{{ pedido.cantidad }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Fecha</dt>
+                                        <dd>{{ pedido.fecha|date:"d/m/Y H:i" }}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <h3>Aún no hay pedidos</h3>
+                    <p>Cuando registres un pedido, aparecerá aquí.</p>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Todos los derechos reservados, 2026</p>
+    </footer>
+</body>
+</html>

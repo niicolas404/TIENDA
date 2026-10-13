@@ -1,0 +1,1 @@
+Usé Ia para generar los archivos "inicio.html" y "style.css" a la par de la configuración vews.py.
